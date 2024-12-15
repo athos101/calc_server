@@ -67,7 +67,7 @@
 			<td><button type="button" class="button" onclick="doSomething('log')">log</button></td>
 			<td><button type="button" class="button" onclick="doSomething('lg')">log2</button></td>
 			<td><button type="button" class="button" onclick="doSomething('ln')">ln</button></td>
-			<td><button type="button" class="button" onclick="appendOperator('²')">x²</button></td>
+			<td><button type="button" class="button" onclick="suffixOperator('²')">x²</button></td>
 			<td><button type="button" class="button" onclick="doSomething('√')">√</button></td>
 		</tr>
 		<tr>
@@ -115,6 +115,7 @@
 		var X="";
 		var Y="";
 		var Z="";
+		var operatorType="binary";
 		
 		function activate(digit) {
 			if (answer!="") {
@@ -143,7 +144,14 @@
 			oper = operator;
 			answer="";
 			document.getElementById('calcDisplay').value = arg1 + " " + oper + " " + arg2;
-		}		
+		}
+		function suffixOperator(operator){
+			if(arg1=="")
+				return;
+			oper = operator;
+			answer="";
+			document.getElementById('calcDisplay').value = arg1 + " " + oper;
+		}
 		function clearAll() {
 			arg1 = ""; arg2 = ""; answer = ""; oper = "";
 			document.getElementById('calcDisplay').value = arg1 ;
@@ -211,18 +219,23 @@
 			}
 			const symbolList=["e","π","X","Y","Z"]
 
-			if (oper=="" || arg2=="") 
+			if (oper=="" || arg1=="") 
 				return;
 
 			if (symbolList.includes(arg1)){
 				arg1=symbolToNum[arg1]
 			}
-			if (symbolList.includes(arg2))
-				arg2=symbolToNum[arg2]
 
 			let result = NaN;
 			let val1 = parseFloat(arg1);
-			let val2 = parseFloat(arg2);
+			if (arg2 == ""){
+				operatorType="unary";
+			}
+			else{
+				if (symbolList.includes(arg2)){}
+					arg2=symbolToNum[arg2];
+				let val2 = parseFloat(arg2);
+			}
 			
 			const opToString = {
 				"+":"add",
@@ -240,7 +253,7 @@
 
 			if (!isNaN(val1) && !isNaN(val2)) {
 				try {
-                const response = await fetch(`http://localhost:8080/wscalc/?op=${oper}&n1=${val1}&n2=${val2}`);
+                const response = await fetch(`http://localhost:8080/wscalc/?op=${oper}&optype=${operatorType}&n1=${val1}&n2=${val2}`);
                 if (!response.ok) {
                     throw new Error(`Erro: ${response.status} ${response.statusText}`);
                 }

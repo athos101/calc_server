@@ -21,10 +21,22 @@ def exec_unary_math_oper(oper, val):
         result = math.sin(val)
     elif oper=="cos":
         result = math.cos(val)
+    elif oper=="sec":
+        result = 1/math.cos(val)
     elif oper=="tan":
         result = math.tan(val)
     elif oper=="fat":
         result = math.factorial(val)
+    elif oper=="sq":
+        result = val * val
+    elif oper=="sqrt":
+        result = math.sqrt(val)
+    elif oper=="abs":
+        if val < 0:
+            val=-val
+        result = val
+    elif oper=="inv":
+        result = 1/val
     return result
 
 def exec_binary_math_oper(oper, val1,val2):
@@ -53,6 +65,7 @@ class ServidorWebBasico(BaseHTTPRequestHandler):
             op = query.get("op", [""])[0]
             val1 = query.get("n1", [""])[0]
             val2 = query.get("n2", [""])[0]
+
             print(op)
             print(val1)
 
@@ -73,14 +86,10 @@ class ServidorWebBasico(BaseHTTPRequestHandler):
             self.wfile.write(f"{result}".encode("utf-8"))     
             return
         else:
-            # Return um arquivo no diretorio base do servidor
             print("self.path=",self.path)
             if ServerDir[0]=='.':
                 filepath = os.getcwd()
-                if len(ServerDir)>2:
-                    # Parametro dever sre algo como "./<rel path>", 
-                    # corta fora "./" e adiciona <rel path> ao diretorio
-                    # corrente do servidor                   
+                if len(ServerDir)>2:                 
                     filepath = os.path.join(filepath,ServerDir[2:])
             else:
                 filepath = ServerDir
@@ -124,15 +133,14 @@ def main():
     
     server = HTTPServer((args.ip, args.port), ServidorWebBasico)
     
-    print("Servidor Web Basico - Versao 1.0 em Python")
-    print("Operacao do servidor iniciada!")
-    print("Parametros de operacao sao:")
+    print("Servidor WSCalc iniciado.")
+    print("Parametros do servidor:")
     print("    IP:                 ", args.ip)
     print("    Porta:              ", args.port)
     print("    Diretorio Corrente: ", os.getcwd())
     print("    HomePage Dir:       ", args.dir)
     print("    HomePage File:      ", args.file)
-    print("Pressione CTRL-C para parar o servidor")
+    print("Pressione CTRL-C para parar o servidor.")
     
     server.serve_forever()
 

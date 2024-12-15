@@ -75,7 +75,7 @@
 			<td><button type="button" class="button" onclick="appendDigit('8')">8</button></td>
 			<td><button type="button" class="button" onclick="appendDigit('9')">9</button></td>
 			<td><button type="button" class="button" onclick="appendOperator('x')">x</button></td>
-			<td><button type="button" class="button" onclick="doSomething('fat')">X!</button></td>
+			<td><button type="button" class="button" onclick="appendOperator('^')">pow</button></td>
 		</tr>
 		<tr>
 			<td><button type="button" class="button" onclick="appendDigit('4')">4</button></td>
@@ -92,18 +92,18 @@
 			<td><button type="button" class="button" onclick="doSomething('|')">|x|</button></td>
 		</tr>
 		<tr>
-			<td><button type="button" class="button" onclick="doSomething('?')">+/-</button></td>
+			<td><button type="button" class="button" onclick="doSomething('fat')">X!</button></td>
 			<td><button type="button" class="button" onclick="doSomething('0')">0</button></td>
 			<td><button type="button" class="button" onclick="appendDot('.')">.</button></td>
 			<td><button type="button" class="button" onclick="appendOperator('-')">-</button></td>
-			<td><button type="button" class="button" onclick="doSomething('pi')">π</button></td>
+			<td><button type="button" class="button" onclick="appendDigit('π')">π</button></td>
 		</tr>
 		<tr>
 			<td><button type="button" class="button" onclick="clearAll('C')">C</button></td>
 			<td><button type="button" class="button" onclick="clearNumber('CE')">CE</button></td>
 			<td><button type="button" class="button" onclick="doSomething('^')">^</button></td>
 			<td><button type="button" class="button" onclick="calculate('=')">=</button></td>
-			<td><button type="button" class="button" onclick="doSomething('eu')">e</button></td>
+			<td><button type="button" class="button" onclick="appendDigit('e')">e</button></td>
 		</tr>
 	</table>  
  
@@ -112,6 +112,9 @@
 		var arg2 = "";
 		var oper = "";
 		var answer = "";
+		var X="";
+		var Y="";
+		var Z="";
 		
 		function activate(digit) {
 			if (answer!="") {
@@ -183,9 +186,31 @@
 			answer = "";
 			document.getElementById('calcDisplay').value = arg1 + " " + oper + " " + arg2;
 		}		
+
+		function storeVar(){
+
+		}
+		function readVar(){
+
+		}
+
 		async function calculate() {
+			const symbolToNum={
+				"e":Math.E,
+				"π":Math.PI,
+				"X":X,
+				"Y":Y,
+				"Z":Z
+			}
 			if (oper=="" || arg2=="") 
 				return;
+			else if (arg1 in ["e","π","X","Y","Z"]){
+				arg1=symbolToNum[arg1]
+			}
+			else if (arg2 in ["e","π","X","Y","Z"]){
+				arg2=symbolToNum[arg2]
+			}
+
 			let result = NaN;
 			let val1 = parseFloat(arg1);
 			let val2 = parseFloat(arg2);
@@ -194,7 +219,13 @@
 				"+":"add",
 				"-": "sub",
  				"x": "mul",
-  				"/": "div"
+  				"/": "div",
+				"^": "pow",
+				"|": "abs",
+				"²": "sq",
+				"√": "sqrt",
+				"|": "abs",
+				"|": "abs",
 			}
 			oper=opToString[oper]
 

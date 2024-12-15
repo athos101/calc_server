@@ -53,47 +53,47 @@
 			<td><button type="button" class="button" onclick="appendDigit('X')">RX</button></td>
 			<td><button type="button" class="button" onclick="appendDigit('Y')">RY</button></td>
 			<td><button type="button" class="button" onclick="appendDigit('Z')">RZ</button></td>
-			<td><button type="button" class="button" onclick="doSomething('sin')">sin</button></td>
-			<td><button type="button" class="button" onclick="doSomething('cos')">cos</button></td>
+			<td><button type="button" class="button" onclick="prefixOperator('sin')">sin</button></td>
+			<td><button type="button" class="button" onclick="prefixOperator('cos')">cos</button></td>
 		</tr>
 		<tr>
 			<td><button type="button" class="button" onclick="storeVar('X')">SX</button></td>
 			<td><button type="button" class="button" onclick="storeVar('Y')">SY</button></td>
 			<td><button type="button" class="button" onclick="storeVar('Z')">SZ</button></td>
-			<td><button type="button" class="button" onclick="doSomething('tan')">tan</button></td>
-			<td><button type="button" class="button" onclick="doSomething('sec')">sec</button></td>
+			<td><button type="button" class="button" onclick="prefixOperator('tan')">tan</button></td>
+			<td><button type="button" class="button" onclick="prefixOperator('sec')">sec</button></td>
 		</tr>
 		<tr>
-			<td><button type="button" class="button" onclick="doSomething('log')">log</button></td>
-			<td><button type="button" class="button" onclick="doSomething('lg')">log2</button></td>
-			<td><button type="button" class="button" onclick="doSomething('ln')">ln</button></td>
+			<td><button type="button" class="button" onclick="prefixOperator('log')">log</button></td>
+			<td><button type="button" class="button" onclick="prefixOperator('lg')">log2</button></td>
+			<td><button type="button" class="button" onclick="prefixOperator('ln')">ln</button></td>
 			<td><button type="button" class="button" onclick="suffixOperator('²')">x²</button></td>
-			<td><button type="button" class="button" onclick="doSomething('√')">√</button></td>
+			<td><button type="button" class="button" onclick="prefixOperator('√')">√</button></td>
 		</tr>
 		<tr>
 			<td><button type="button" class="button" onclick="appendDigit('7')">7</button></td>
 			<td><button type="button" class="button" onclick="appendDigit('8')">8</button></td>
 			<td><button type="button" class="button" onclick="appendDigit('9')">9</button></td>
 			<td><button type="button" class="button" onclick="appendOperator('x')">x</button></td>
-			<td><button type="button" class="button" onclick="appendOperator('^')">pow</button></td>
+			<td><button type="button" class="button" onclick="suffixOperator('!')">X!</button></td>
 		</tr>
 		<tr>
 			<td><button type="button" class="button" onclick="appendDigit('4')">4</button></td>
 			<td><button type="button" class="button" onclick="appendDigit('5')">5</button></td>
 			<td><button type="button" class="button" onclick="appendDigit('6')">6</button></td>
 			<td><button type="button" class="button" onclick="appendOperator('/')">/</button></td>
-			<td><button type="button" class="button" onclick="doSomething('inv')">1/x</button></td>
+			<td><button type="button" class="button" onclick="prefixOperator('inv')">1/x</button></td>
 		</tr>
 		<tr>
 			<td><button type="button" class="button" onclick="appendDigit('1')">1</button></td>
 			<td><button type="button" class="button" onclick="appendDigit('2')">2</button></td>
 			<td><button type="button" class="button" onclick="appendDigit('3')">3</button></td>
 			<td><button type="button" class="button" onclick="appendOperator('+')">+</button></td>
-			<td><button type="button" class="button" onclick="doSomething('|')">|x|</button></td>
+			<td><button type="button" class="button" onclick="prefixOperator('|')">|x|</button></td>
 		</tr>
 		<tr>
-			<td><button type="button" class="button" onclick="doSomething('fat')">X!</button></td>
-			<td><button type="button" class="button" onclick="doSomething('0')">0</button></td>
+			<td><button type="button" class="button" onclick="prefixSign()">+/-</button></td>
+			<td><button type="button" class="button" onclick="appendDigit('0')">0</button></td>
 			<td><button type="button" class="button" onclick="appendDot('.')">.</button></td>
 			<td><button type="button" class="button" onclick="appendOperator('-')">-</button></td>
 			<td><button type="button" class="button" onclick="appendDigit('π')">π</button></td>
@@ -101,7 +101,7 @@
 		<tr>
 			<td><button type="button" class="button" onclick="clearAll('C')">C</button></td>
 			<td><button type="button" class="button" onclick="clearNumber('CE')">CE</button></td>
-			<td><button type="button" class="button" onclick="doSomething('^')">^</button></td>
+			<td><button type="button" class="button" onclick="appendOperator('^')">^</button></td>
 			<td><button type="button" class="button" onclick="calculate('=')">=</button></td>
 			<td><button type="button" class="button" onclick="appendDigit('e')">e</button></td>
 		</tr>
@@ -147,8 +147,14 @@
 			document.getElementById('calcDisplay').value = arg1 + " " + oper + " " + arg2;
 		}
 		function suffixOperator(operator){
-			if(arg1=="")
+			if(arg1=="" || oper!="")
 				return;
+			oper = operator;
+			operatorType = "unary";
+			answer="";
+			document.getElementById('calcDisplay').value = arg1 + " " + oper;
+		}
+		function prefixOperator(operator){
 			oper = operator;
 			operatorType = "unary";
 			answer="";
@@ -185,6 +191,7 @@
 			answer = "";
 			document.getElementById('calcDisplay').value = arg1 + " " + oper + " " + arg2;
 		}		
+		
 		function appendDot() {
 			if (oper!="") {
 				if (arg2!="" && arg2.indexOf(".")==-1)
@@ -247,7 +254,7 @@
 				"|": "abs",
 				"²": "sq",
 				"√": "sqrt",
-				"|": "abs",
+				"!": "fat",
 				"|": "abs",
 			}
 			

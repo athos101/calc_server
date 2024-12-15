@@ -26,7 +26,7 @@ def exec_unary_math_oper(oper, val):
     elif oper=="tan":
         result = math.tan(val)
     elif oper=="fat":
-        result = math.factorial(val)
+        result = math.factorial(int(val))
     elif oper=="sq":
         result = val * val
     elif oper=="sqrt":

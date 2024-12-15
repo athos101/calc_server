@@ -66,9 +66,6 @@ class ServidorWebBasico(BaseHTTPRequestHandler):
             val1 = query.get("n1", [""])[0]
             val2 = query.get("n2", [""])[0]
 
-            print(op)
-            print(val1)
-
             if not (op and val1 and val2):
                 self.send_error(400, "Parâmetros inválidos. Verifique os números e operadores na requisição.")
                 return

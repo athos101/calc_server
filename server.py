@@ -63,27 +63,27 @@ class ServidorWebBasico(BaseHTTPRequestHandler):
             query = parse.parse_qs(parse.urlparse(self.path).query)
 
             op = query.get("op", [""])[0]
-            optype = query.get("optype",[""])[0]
             val1 = query.get("n1", [""])[0]
             val2 = query.get("n2", [""])[0]
 
-            if optype=="binary":
-                if not (op and val1 and val2 | op and val1 and optype=="unary"):
-                    self.send_error(400, "Parâmetros inválidos. Verifique os números e operadores na requisição.")
-                    return
-                try:
-                    val1 = float(val1)
-                    if optype=="binary":
-                        val2 = float(val2)
-                except ValueError:
-                    self.send_error(400, "Os valores val1 e val2 devem ser números.")
-                    return
-            if optype=="binary":
-                result = exec_binary_math_oper(oper=op, val1=val1, val2=val2)
-            elif optype=="unary":
-                result = exec_unary_math_oper(oper=op, val1=val1)
+            print(val1)
+            print(val2)
+            print(op)
+
+            if not (op and val1 and val2):
+                self.send_error(400, "Parâmetros inválidos. Verifique os números e operadores na requisição.")
+                return
+            try:
+                val1 = float(val1)
+                if val2 != "und":
+                    val2 = float(val2)
+            except ValueError:
+                self.send_error(400, "Os valores val1 e val2 devem ser números.")
+                return
+            if val2 == "und":
+                result = exec_unary_math_oper(oper=op, val=val1)
             else:
-                self.send_error(400, "Algo errado com o tipo da operação.")
+                result = exec_binary_math_oper(oper=op, val1=val1, val2=val2)
             result = round(result, 6)
             self.send_response(200)
             self.send_header("Content-type", "text/plain")

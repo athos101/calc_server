@@ -115,7 +115,7 @@
 		var X="";
 		var Y="";
 		var Z="";
-		var operatorType="binary";
+		var operatorType="";
 		
 		function activate(digit) {
 			if (answer!="") {
@@ -142,6 +142,7 @@
 			if (oper!="")
 				return;
 			oper = operator;
+			operatorType = "binary";
 			answer="";
 			document.getElementById('calcDisplay').value = arg1 + " " + oper + " " + arg2;
 		}
@@ -149,6 +150,7 @@
 			if(arg1=="")
 				return;
 			oper = operator;
+			operatorType = "unary";
 			answer="";
 			document.getElementById('calcDisplay').value = arg1 + " " + oper;
 		}
@@ -228,13 +230,12 @@
 
 			let result = NaN;
 			let val1 = parseFloat(arg1);
-			if (arg2 == ""){
-				operatorType="unary";
-			}
-			else{
-				if (symbolList.includes(arg2)){}
+			let val2 = "und";
+			if (operatorType == "binary"){
+				if (symbolList.includes(arg2)){
 					arg2=symbolToNum[arg2];
-				let val2 = parseFloat(arg2);
+				}
+				val2 = parseFloat(arg2);
 			}
 			
 			const opToString = {
@@ -249,19 +250,19 @@
 				"|": "abs",
 				"|": "abs",
 			}
-			oper=opToString[oper]
-
-			if (!isNaN(val1) && !isNaN(val2)) {
+			
+			if (!isNaN(val1) && !isNaN(val2) || !isNaN(val1) && val2=="und") {
 				try {
-                const response = await fetch(`http://localhost:8080/wscalc/?op=${oper}&optype=${operatorType}&n1=${val1}&n2=${val2}`);
-                if (!response.ok) {
-                    throw new Error(`Erro: ${response.status} ${response.statusText}`);
-                }
-                result = await response.text();
-                document.getElementById("calcDisplay").innerText = result;
-            } catch (error) {
-                document.getElementById("calcDisplay").innerText = error.message;
-            }
+					oper=opToString[oper];
+					const response = await fetch(`http://localhost:8080/wscalc/?op=${oper}&n1=${val1}&n2=${val2}`);
+					if (!response.ok) {
+						throw new Error(`Erro: ${response.status} ${response.statusText}`);
+					}
+					result = await response.text();
+					document.getElementById("calcDisplay").innerText = result;
+				} catch (error) {
+					document.getElementById("calcDisplay").innerText = error.message;
+				}
 			}
 			if (isNaN(result))
 				answer = "Error!";

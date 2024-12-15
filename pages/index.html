@@ -1,0 +1,222 @@
+<html>
+  <head>
+	<meta charset="utf-8">
+    <title>Calculadora Científica</title>
+  </head>
+  <body>
+	<style>
+		table {
+			font-family: arial, sans-serif;
+			border-collapse: collapse;
+			margin-left: auto;
+			margin-right: auto;
+		}
+		td, tr {
+			border: 1px solid black;
+			text-align: center;
+			padding: 8px;
+		}		
+		textarea {
+			font-family: arial, sans-serif;
+			font-size: 16px;
+			font-weight: bold;
+			height: 30px;
+		}
+		.button {
+			border: 1px solid black;
+			color: gray;
+			padding: 6px 10px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 14px;
+			margin: 2px 2px;
+			cursor: pointer;
+			border-radius: 8px;
+			font-weight: bold;
+			/* width:45px; */
+		}
+		.buttonLightCyan {
+			background-color: LightCyan
+		} 
+		.buttonRed {
+			background-color: Red; 
+			color: White
+		}
+	</style>
+ 
+	<table>
+		<tr>
+			<td colspan="5"><textarea id="calcDisplay" rows="1" cols="30"></textarea></th>
+		</tr>
+		<tr>
+			<td><button type="button" class="button" onclick="doSomething('X')">RX</button></td>
+			<td><button type="button" class="button" onclick="doSomething('Y')">RY</button></td>
+			<td><button type="button" class="button" onclick="doSomething('Z')">RZ</button></td>
+			<td><button type="button" class="button" onclick="doSomething('sin')">sin</button></td>
+			<td><button type="button" class="button" onclick="doSomething('cos')">cos</button></td>
+		</tr>
+		<tr>
+			<td><button type="button" class="button" onclick="doSomething('X')">SX</button></td>
+			<td><button type="button" class="button" onclick="doSomething('Y')">SY</button></td>
+			<td><button type="button" class="button" onclick="doSomething('Z')">SZ</button></td>
+			<td><button type="button" class="button" onclick="doSomething('tan')">tan</button></td>
+			<td><button type="button" class="button" onclick="doSomething('sec')">sec</button></td>
+		</tr>
+		<tr>
+			<td><button type="button" class="button" onclick="doSomething('log')">log</button></td>
+			<td><button type="button" class="button" onclick="doSomething('lg')">log2</button></td>
+			<td><button type="button" class="button" onclick="doSomething('ln')">ln</button></td>
+			<td><button type="button" class="button" onclick="appendOperator('²')">x²</button></td>
+			<td><button type="button" class="button" onclick="doSomething('√')">√</button></td>
+		</tr>
+		<tr>
+			<td><button type="button" class="button" onclick="appendDigit('7')">7</button></td>
+			<td><button type="button" class="button" onclick="appendDigit('8')">8</button></td>
+			<td><button type="button" class="button" onclick="appendDigit('9')">9</button></td>
+			<td><button type="button" class="button" onclick="appendOperator('x')">x</button></td>
+			<td><button type="button" class="button" onclick="doSomething('fat')">X!</button></td>
+		</tr>
+		<tr>
+			<td><button type="button" class="button" onclick="appendDigit('4')">4</button></td>
+			<td><button type="button" class="button" onclick="appendDigit('5')">5</button></td>
+			<td><button type="button" class="button" onclick="appendDigit('6')">6</button></td>
+			<td><button type="button" class="button" onclick="appendOperator('/')">/</button></td>
+			<td><button type="button" class="button" onclick="doSomething('inv')">1/x</button></td>
+		</tr>
+		<tr>
+			<td><button type="button" class="button" onclick="appendDigit('1')">1</button></td>
+			<td><button type="button" class="button" onclick="appendDigit('2')">2</button></td>
+			<td><button type="button" class="button" onclick="appendDigit('3')">3</button></td>
+			<td><button type="button" class="button" onclick="appendOperator('+')">+</button></td>
+			<td><button type="button" class="button" onclick="doSomething('|')">|x|</button></td>
+		</tr>
+		<tr>
+			<td><button type="button" class="button" onclick="doSomething('?')">+/-</button></td>
+			<td><button type="button" class="button" onclick="doSomething('0')">0</button></td>
+			<td><button type="button" class="button" onclick="appendDot('.')">.</button></td>
+			<td><button type="button" class="button" onclick="appendOperator('-')">-</button></td>
+			<td><button type="button" class="button" onclick="doSomething('pi')">π</button></td>
+		</tr>
+		<tr>
+			<td><button type="button" class="button" onclick="clearAll('C')">C</button></td>
+			<td><button type="button" class="button" onclick="clearNumber('CE')">CE</button></td>
+			<td><button type="button" class="button" onclick="doSomething('^')">^</button></td>
+			<td><button type="button" class="button" onclick="calculate('=')">=</button></td>
+			<td><button type="button" class="button" onclick="doSomething('eu')">e</button></td>
+		</tr>
+	</table>  
+ 
+	<script>
+		var arg1 = "";
+		var arg2 = "";
+		var oper = "";
+		var answer = "";
+		
+		function activate(digit) {
+			if (answer!="") {
+				arg1 = ""; answer="";
+			}
+			if (oper!="")
+				arg2 += digit;
+			else
+				arg1 += digit;	
+			document.getElementById('calcDisplay').value = arg1 + " " + oper + " " + arg2;
+		}
+
+		function appendDigit(digit) {
+			if (answer!="") {
+				arg1 = ""; answer="";
+			}
+			if (oper!="")
+				arg2 += digit;
+			else
+				arg1 += digit;	
+			document.getElementById('calcDisplay').value = arg1 + " " + oper + " " + arg2;
+		}		
+		function appendOperator(operator) {
+			if (oper!="")
+				return;
+			oper = operator;
+			answer="";
+			document.getElementById('calcDisplay').value = arg1 + " " + oper + " " + arg2;
+		}		
+		function clearAll() {
+			arg1 = ""; arg2 = ""; answer = ""; oper = "";
+			document.getElementById('calcDisplay').value = arg1 ;
+		}		
+		function clearNumber() {
+			if (oper!="")
+				arg2 = "";
+			else
+				arg1 = "";
+			answer = "";
+			document.getElementById('calcDisplay').value = arg1 + " " + oper + " " + arg2;
+		}		
+		function prefixSign() {
+			if (oper!="") {
+				if (arg2 == "")
+					arg2 = '-';
+				else if (arg2.charAt(0)=="-")
+					arg2 = arg2.slice(1);				
+				else
+					arg2 = '-'+arg2;
+			} else {
+				if (arg1 == "")
+					arg1 = '-';
+				else if (arg1.charAt(0)=="-")
+					arg1 = arg1.slice(1);				
+				else
+					arg1 = '-'+arg1;
+			}
+			answer = "";
+			document.getElementById('calcDisplay').value = arg1 + " " + oper + " " + arg2;
+		}		
+		function appendDot() {
+			if (oper!="") {
+				if (arg2!="" && arg2.indexOf(".")==-1)
+					arg2 += ".";
+			} else { 
+				if (arg1!="" && arg1.indexOf(".")==-1)
+					arg1 += ".";
+			}
+			answer = "";
+			document.getElementById('calcDisplay').value = arg1 + " " + oper + " " + arg2;
+		}		
+		async function calculate() {
+			if (oper=="" || arg2=="") 
+				return;
+			let result = NaN;
+			let val1 = parseFloat(arg1);
+			let val2 = parseFloat(arg2);
+
+			const opToString = {
+				"+":"add",
+				"-": "sub",
+ 				"x": "mul",
+  				"/": "div"
+			}
+			oper=opToString[oper]
+
+			if (!isNaN(val1) && !isNaN(val2)) {
+				try {
+                const response = await fetch(`http://localhost:8080/wscalc/?op=${oper}&n1=${val1}&n2=${val2}`);
+                if (!response.ok) {
+                    throw new Error(`Erro: ${response.status} ${response.statusText}`);
+                }
+                result = await response.text();
+                document.getElementById("calcDisplay").innerText = result;
+            } catch (error) {
+                document.getElementById("calcDisplay").innerText = error.message;
+            }
+			}
+			if (isNaN(result))
+				answer = "Error!";
+			else
+				answer = result.toString();
+			document.getElementById('calcDisplay').value = answer;
+			arg1 = answer; arg2 = ""; oper = "";
+		}
+	</script>
+  </body>
+</html>

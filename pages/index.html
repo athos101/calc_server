@@ -228,20 +228,27 @@
 			}
 			const symbolList=["e","π","X","Y","Z"]
 
-			if (oper=="" || arg1=="") 
+			if ((oper=="" || arg1=="") && (oper=="" || arg2==""))
 				return;
 
 			if (symbolList.includes(arg1)){
 				arg1=symbolToNum[arg1]
 			}
-
-			let result = NaN;
-			let val1 = parseFloat(arg1);
-			let val2 = "und";
-			if (operatorType == "binary"){
-				if (symbolList.includes(arg2)){
+			if (symbolList.includes(arg2)){
 					arg2=symbolToNum[arg2];
 				}
+			let result = NaN;
+			let val1 = NaN;
+			let val2 = NaN;
+
+			if (operatorType == "unary"){
+				if (arg1 == ""){
+					val2 = parseFloat(arg2);
+				} else if (arg2 == ""){
+					val1 = parseFloat(arg1);
+				}
+			} else if (operatorType == "binary"){
+				val1 = parseFloat(arg1);
 				val2 = parseFloat(arg2);
 			}
 			
@@ -255,10 +262,14 @@
 				"²": "sq",
 				"√": "sqrt",
 				"!": "fat",
-				"|": "abs",
+				"sin": "sin",
 			}
 			
-			if (!isNaN(val1) && !isNaN(val2) || !isNaN(val1) && val2=="und") {
+			if (!isNaN(val1) || !isNaN(val2)) {
+				if (isNaN(val1))
+					val1 = "und"
+				else if (isNaN(val2))
+					val2 = "und"
 				try {
 					oper=opToString[oper];
 					const response = await fetch(`http://localhost:8080/wscalc/?op=${oper}&n1=${val1}&n2=${val2}`);

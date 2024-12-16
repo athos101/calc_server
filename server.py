@@ -18,13 +18,13 @@ def exec_unary_math_oper(oper, val):
     elif oper=="lg":
         result = math.log2(val)
     elif oper=="sin":
-        result = math.sin(val)
+        result = math.sin(math.radians(val))
     elif oper=="cos":
-        result = math.cos(val)
+        result = math.cos(math.radians(val))
     elif oper=="sec":
-        result = 1/math.cos(val)
+        result = 1/math.cos(math.radians(val))
     elif oper=="tan":
-        result = math.tan(val)
+        result = math.tan(math.radians(val))
     elif oper=="fat":
         result = math.factorial(int(val))
     elif oper=="sq":
@@ -74,7 +74,8 @@ class ServidorWebBasico(BaseHTTPRequestHandler):
                 self.send_error(400, "Parâmetros inválidos. Verifique os números e operadores na requisição.")
                 return
             try:
-                val1 = float(val1)
+                if val1 != "und":
+                    val1 = float(val1)
                 if val2 != "und":
                     val2 = float(val2)
             except ValueError:
@@ -82,6 +83,8 @@ class ServidorWebBasico(BaseHTTPRequestHandler):
                 return
             if val2 == "und":
                 result = exec_unary_math_oper(oper=op, val=val1)
+            elif val1 == "und":
+                result = exec_unary_math_oper(oper=op, val=val2)
             else:
                 result = exec_binary_math_oper(oper=op, val1=val1, val2=val2)
             result = round(result, 6)

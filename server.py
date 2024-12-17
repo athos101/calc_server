@@ -123,7 +123,7 @@ class ServidorWebBasico(BaseHTTPRequestHandler):
             self.send_header("Cache-Control", "no-store")
             self.end_headers()
             shutil.copyfileobj(f, self.wfile)
-            f.close()       
+            f.close()
         return
 
 def main():

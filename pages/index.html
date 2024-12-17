@@ -24,7 +24,7 @@
 		}
 		.button {
 			border: 1px solid black;
-			color: gray;
+			color: black;
 			padding: 6px 10px;
 			text-align: center;
 			text-decoration: none;
@@ -36,12 +36,51 @@
 			font-weight: bold;
 			/* width:45px; */
 		}
-		.buttonLightCyan {
-			background-color: LightCyan
+		.buttonGray{
+			border: 1px solid black;
+			background-color: gray;
+			color: white;
+			padding: 6px 10px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 14px;
+			margin: 2px 2px;
+			cursor: pointer;
+			border-radius: 8px;
+			font-weight: bold;
+		}
+		.buttonYellow {
+			background-color: #fff175;
+			font-size: 14px;
+			font-weight: bold;
+			padding: 6px 10px;
+			color: black;
+			border-radius: 8px;
 		} 
-		.buttonRed {
-			background-color: Red; 
-			color: White
+		.buttonLightCyan {
+			background-color: lightcyan; 
+			font-size: 14px;
+			font-weight: bold;
+			padding: 6px 10px;
+			color: black;
+			border-radius: 8px;
+		}
+		.buttonLightGreen {
+			background-color: lightgreen; 
+			font-size: 14px;
+			font-weight: bold;
+			padding: 6px 10px;
+			color: black;
+			border-radius: 8px;
+		}
+		.buttonLightRed {
+			background-color: lightcoral; 
+			font-size: 14px;
+			font-weight: bold;
+			padding: 6px 10px;
+			color: black;
+			border-radius: 8px;
 		}
 	</style>
  
@@ -50,60 +89,60 @@
 			<td colspan="5"><textarea id="calcDisplay" rows="1" cols="30"></textarea></th>
 		</tr>
 		<tr>
-			<td><button type="button" class="button" onclick="appendDigit('X')">RX</button></td>
-			<td><button type="button" class="button" onclick="appendDigit('Y')">RY</button></td>
-			<td><button type="button" class="button" onclick="appendDigit('Z')">RZ</button></td>
-			<td><button type="button" class="button" onclick="prefixOperator('sin')">sin</button></td>
-			<td><button type="button" class="button" onclick="prefixOperator('cos')">cos</button></td>
+			<td><button type="button" class="buttonYellow" onclick="appendDigit('X')">RX</button></td>
+			<td><button type="button" class="buttonYellow" onclick="appendDigit('Y')">RY</button></td>
+			<td><button type="button" class="buttonYellow" onclick="appendDigit('Z')">RZ</button></td>
+			<td><button type="button" class="buttonLightCyan" onclick="prefixOperator('sin')">sin</button></td>
+			<td><button type="button" class="buttonLightCyan" onclick="prefixOperator('cos')">cos</button></td>
 		</tr>
 		<tr>
-			<td><button type="button" class="button" onclick="storeVar('X')">SX</button></td>
-			<td><button type="button" class="button" onclick="storeVar('Y')">SY</button></td>
-			<td><button type="button" class="button" onclick="storeVar('Z')">SZ</button></td>
-			<td><button type="button" class="button" onclick="prefixOperator('tan')">tan</button></td>
-			<td><button type="button" class="button" onclick="prefixOperator('sec')">sec</button></td>
+			<td><button type="button" class="buttonYellow" onclick="storeVar('X')">SX</button></td>
+			<td><button type="button" class="buttonYellow" onclick="storeVar('Y')">SY</button></td>
+			<td><button type="button" class="buttonYellow" onclick="storeVar('Z')">SZ</button></td>
+			<td><button type="button" class="buttonLightCyan" onclick="prefixOperator('tan')">tan</button></td>
+			<td><button type="button" class="buttonLightCyan" onclick="prefixOperator('sec')">sec</button></td>
 		</tr>
 		<tr>
-			<td><button type="button" class="button" onclick="prefixOperator('log')">log</button></td>
-			<td><button type="button" class="button" onclick="prefixOperator('lg')">log2</button></td>
-			<td><button type="button" class="button" onclick="prefixOperator('ln')">ln</button></td>
-			<td><button type="button" class="button" onclick="suffixOperator('²')">x²</button></td>
-			<td><button type="button" class="button" onclick="prefixOperator('√')">√</button></td>
+			<td><button type="button" class="buttonLightCyan" onclick="prefixOperator('log')">log</button></td>
+			<td><button type="button" class="buttonLightCyan" onclick="prefixOperator('lg')">log2</button></td>
+			<td><button type="button" class="buttonLightCyan" onclick="prefixOperator('ln')">ln</button></td>
+			<td><button type="button" class="buttonLightCyan" onclick="suffixOperator('²')">x²</button></td>
+			<td><button type="button" class="buttonLightCyan" onclick="prefixOperator('√')">√</button></td>
 		</tr>
 		<tr>
-			<td><button type="button" class="button" onclick="appendDigit('7')">7</button></td>
-			<td><button type="button" class="button" onclick="appendDigit('8')">8</button></td>
-			<td><button type="button" class="button" onclick="appendDigit('9')">9</button></td>
-			<td><button type="button" class="button" onclick="appendOperator('x')">x</button></td>
-			<td><button type="button" class="button" onclick="suffixOperator('!')">X!</button></td>
+			<td><button type="button" class="buttonGray" onclick="appendDigit('7')">7</button></td>
+			<td><button type="button" class="buttonGray" onclick="appendDigit('8')">8</button></td>
+			<td><button type="button" class="buttonGray" onclick="appendDigit('9')">9</button></td>
+			<td><button type="button" class="buttonLightCyan" onclick="appendOperator('x')">x</button></td>
+			<td><button type="button" class="buttonLightCyan" onclick="suffixOperator('!')">X!</button></td>
 		</tr>
 		<tr>
-			<td><button type="button" class="button" onclick="appendDigit('4')">4</button></td>
-			<td><button type="button" class="button" onclick="appendDigit('5')">5</button></td>
-			<td><button type="button" class="button" onclick="appendDigit('6')">6</button></td>
-			<td><button type="button" class="button" onclick="appendOperator('/')">/</button></td>
-			<td><button type="button" class="button" onclick="prefixOperator('inv')">1/x</button></td>
+			<td><button type="button" class="buttonGray" onclick="appendDigit('4')">4</button></td>
+			<td><button type="button" class="buttonGray" onclick="appendDigit('5')">5</button></td>
+			<td><button type="button" class="buttonGray" onclick="appendDigit('6')">6</button></td>
+			<td><button type="button" class="buttonLightCyan" onclick="appendOperator('/')">/</button></td>
+			<td><button type="button" class="buttonLightCyan" onclick="prefixOperator('inv')">1/x</button></td>
 		</tr>
 		<tr>
-			<td><button type="button" class="button" onclick="appendDigit('1')">1</button></td>
-			<td><button type="button" class="button" onclick="appendDigit('2')">2</button></td>
-			<td><button type="button" class="button" onclick="appendDigit('3')">3</button></td>
-			<td><button type="button" class="button" onclick="appendOperator('+')">+</button></td>
-			<td><button type="button" class="button" onclick="prefixOperator('|')">|x|</button></td>
+			<td><button type="button" class="buttonGray" onclick="appendDigit('1')">1</button></td>
+			<td><button type="button" class="buttonGray" onclick="appendDigit('2')">2</button></td>
+			<td><button type="button" class="buttonGray" onclick="appendDigit('3')">3</button></td>
+			<td><button type="button" class="buttonLightCyan" onclick="appendOperator('+')">+</button></td>
+			<td><button type="button" class="buttonLightCyan" onclick="wrapOperator('|')">|x|</button></td>
 		</tr>
 		<tr>
 			<td><button type="button" class="button" onclick="prefixSign()">+/-</button></td>
-			<td><button type="button" class="button" onclick="appendDigit('0')">0</button></td>
+			<td><button type="button" class="buttonGray" onclick="appendDigit('0')">0</button></td>
 			<td><button type="button" class="button" onclick="appendDot('.')">.</button></td>
-			<td><button type="button" class="button" onclick="appendOperator('-')">-</button></td>
-			<td><button type="button" class="button" onclick="appendDigit('π')">π</button></td>
+			<td><button type="button" class="buttonLightCyan" onclick="appendOperator('-')">-</button></td>
+			<td><button type="button" class="buttonLightGreen" onclick="appendDigit('π')">π</button></td>
 		</tr>
 		<tr>
-			<td><button type="button" class="button" onclick="clearAll('C')">C</button></td>
-			<td><button type="button" class="button" onclick="clearNumber('CE')">CE</button></td>
-			<td><button type="button" class="button" onclick="appendOperator('^')">^</button></td>
+			<td><button type="button" class="buttonLightRed" onclick="clearAll('C')">C</button></td>
+			<td><button type="button" class="buttonLightRed" onclick="clearNumber('CE')">CE</button></td>
 			<td><button type="button" class="button" onclick="calculate('=')">=</button></td>
-			<td><button type="button" class="button" onclick="appendDigit('e')">e</button></td>
+			<td><button type="button" class="buttonLightCyan" onclick="appendOperator('^')">^</button></td>
+			<td><button type="button" class="buttonLightGreen" onclick="appendDigit('e')">e</button></td>
 		</tr>
 	</table>  
  
@@ -115,7 +154,6 @@
 		var X="";
 		var Y="";
 		var Z="";
-		var operatorType="";
 		
 		function activate(digit) {
 			if (answer!="") {
@@ -155,11 +193,22 @@
 			document.getElementById('calcDisplay').value = arg1 + " " + oper;
 		}
 		function prefixOperator(operator){
+			arg1="", result="";
 			oper = operator;
 			operatorType = "unary";
 			answer="";
 			document.getElementById('calcDisplay').value = arg1 + " " + oper;
 		}
+
+		function wrapOperator(operator){
+			if(arg1=="" || oper!="")
+				return;
+			oper = operator;
+			operatorType = "unary";
+			answer="";
+			document.getElementById('calcDisplay').value = oper + " " + arg1 + " " + oper;
+		}
+
 		function clearAll() {
 			arg1 = ""; arg2 = ""; answer = ""; oper = "";
 			document.getElementById('calcDisplay').value = arg1 ;
@@ -204,7 +253,7 @@
 			document.getElementById('calcDisplay').value = arg1 + " " + oper + " " + arg2;
 		}		
 
-		function storeVar(varRead){
+		async function storeVar(varRead){
 			if (oper!="" || arg1=="")
 				return;
 			if (varRead == "X")
@@ -213,9 +262,22 @@
 				Y=arg1
 			else if (varRead == "Z")
 				Z=arg1
-			answer="",arg1="",arg2="";
 
 			document.getElementById('calcDisplay').value = "number stored in " + varRead + "!";
+
+			try {
+					oper="var";
+					const response = await fetch(`http://localhost:8080/wscalc/?op=${oper}&n1=${varRead}&n2=${arg1}`);
+					if (!response.ok) {
+						throw new Error(`Erro: ${response.status} ${response.statusText}`);
+					}
+					result = await response.text();
+					document.getElementById("calcDisplay").innerText = result;
+				} catch (error) {
+					document.getElementById("calcDisplay").innerText = error.message;
+				}
+
+				answer="",arg1="",arg2="";
 		}
 
 		async function calculate() {
@@ -263,6 +325,13 @@
 				"√": "sqrt",
 				"!": "fat",
 				"sin": "sin",
+				"cos":"cos",
+				"tan":"tan",
+				"sec":"sec",
+				"inv":"inv",
+				"log":"log",
+				"ln":"ln",
+				"lg":"lg"
 			}
 			
 			if (!isNaN(val1) || !isNaN(val2)) {
